@@ -8,24 +8,15 @@ const ListPage = () => {
   const bodies = InitialArray;
   const [selectedBody, setSelectedBody] = useState<Body>(bodies[0]);
   const [favoriteBody, setFavoriteBody] = useState<Body>(bodies[0]);
-  const list = useMemo(() => {
-    return (
+
+  return (
+    <>
       <ListPlanets
         bodies={bodies}
         favoriteBody={favoriteBody}
         onBodyChange={(b) => setSelectedBody(b)}
       />
-    );
-  }, [bodies, favoriteBody]);
-
-  const info = useMemo(() => {
-    return <PlanetInfo body={selectedBody} onBodyFavorite={() => setFavoriteBody(selectedBody)} />;
-  }, [selectedBody]);
-
-  return (
-    <>
-      {list}
-      {info}
+      <PlanetInfo body={selectedBody} onBodyFavorite={() => setFavoriteBody(selectedBody)} />
     </>
   );
 };
