@@ -7,10 +7,11 @@ export const PlanetInfo = ({
   body: Body;
   onBodyFavorite: () => void;
 }) => {
+  console.log('PlanetInfo re-render');
   return (
     <>
-      <a>Body id: {body.id}</a>
-      <a>Body name: {body.name}</a>
+      <p>Body id: {body.id}</p>
+      <p>Body name: {body.name}</p>
       <button onClick={onBodyFavorite}>Favorite</button>
     </>
   );

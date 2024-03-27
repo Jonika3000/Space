@@ -10,6 +10,7 @@ export const ListPlanets = ({
   favoriteBody: Body;
   onBodyChange: (body: Body) => void;
 }) => {
+  console.log('ListPlanets re-render');
   return (
     <>
       {bodies.map((body: Body) => (

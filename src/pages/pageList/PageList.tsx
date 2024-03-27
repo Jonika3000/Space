@@ -1,20 +1,31 @@
 import { ListPlanets } from '../../components/listPlanets/ListPlanets.tsx';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Body } from '../../utils/types.ts';
 import { PlanetInfo } from '../../components/planetInfo/PlanetInfo.tsx';
+import { InitialArray } from "../../utils/raw-data.ts";
 
-const ListPage = ({ bodies }: { bodies: Body[] }) => {
+const ListPage = () => {
+  const bodies = InitialArray;
   const [selectedBody, setSelectedBody] = useState<Body>(bodies[0]);
   const [favoriteBody, setFavoriteBody] = useState<Body>(bodies[0]);
-
-  return (
-    <>
+  const list = useMemo(() => {
+    return (
       <ListPlanets
-        bodies={[]}
+        bodies={bodies}
         favoriteBody={favoriteBody}
         onBodyChange={(b) => setSelectedBody(b)}
       />
-      <PlanetInfo body={selectedBody} onBodyFavorite={() => setFavoriteBody(selectedBody)} />
+    );
+  }, [bodies, favoriteBody]);
+
+  const info = useMemo(() => {
+    return <PlanetInfo body={selectedBody} onBodyFavorite={() => setFavoriteBody(selectedBody)} />;
+  }, [selectedBody]);
+
+  return (
+    <>
+      {list}
+      {info}
     </>
   );
 };

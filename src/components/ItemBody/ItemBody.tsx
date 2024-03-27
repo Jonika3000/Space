@@ -5,6 +5,7 @@ export const ItemBody = ({ body, isFavorite }: { body: Body; isFavorite: boolean
     <>
       <div>
         <a>{body.name}</a>
+        {isFavorite && <i>&#9734;</i>}
       </div>
     </>
   );
