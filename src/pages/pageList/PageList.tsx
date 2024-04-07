@@ -1,20 +1,22 @@
 import { ListPlanets } from '../../components/listPlanets/ListPlanets.tsx';
 import { useMemo, useState } from 'react';
-import { Body } from '../../utils/types.ts';
+import { Body, BodyResponse } from '../../utils/types.ts';
 import { PlanetInfo } from '../../components/planetInfo/PlanetInfo.tsx';
+import useSWR from 'swr';
 
-const PageList = ({ bodies }: { bodies: Body[] }) => {
-  const [selectedBody, setSelectedBody] = useState<Body>(bodies[0]);
-  const [favoriteBody, setFavoriteBody] = useState<Body>(bodies[0]);
+const PageList = () => {
+  const { data } = useSWR<BodyResponse>('/bodies');
+  const [selectedBody, setSelectedBody] = useState<Body | undefined>(data?.bodies[0]);
+  const [favoriteBody, setFavoriteBody] = useState<Body | undefined>(data?.bodies[0]);
   const list = useMemo(() => {
     return (
       <ListPlanets
-        bodies={bodies}
+        bodies={data?.bodies}
         favoriteBody={favoriteBody}
         onBodyChange={(b) => setSelectedBody(b)}
       />
     );
-  }, [bodies, favoriteBody]);
+  }, [data, favoriteBody]);
 
   const info = useMemo(() => {
     return <PlanetInfo body={selectedBody} onBodyFavorite={() => setFavoriteBody(selectedBody)} />;

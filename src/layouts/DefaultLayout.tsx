@@ -15,6 +15,8 @@ export const DefaultLayout = () => {
 
   return (
     <>
+      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+      {/* @ts-expect-error */}
       <ThemeContext.Provider value={theme}>
         <div
           className={`${mode === 'light' ? classes.backgroundLightTheme : classes.backgroundDarkTheme}`}
